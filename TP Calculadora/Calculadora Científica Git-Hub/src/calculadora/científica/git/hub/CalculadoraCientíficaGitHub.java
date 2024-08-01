@@ -27,12 +27,10 @@ public class CalculadoraCientíficaGitHub {
             System.out.println("Polaca Inversa: " + polacaInversa);
 
             try {
-                // Evaluar la expresión en notación polaca inversa
                 String resultado = evaluarExpresion(polacaInversa);
                 System.out.println("Resultado: " + resultado);
                 // Mostrar el resultado en la interfaz (actualmente en consola)
             } catch (Exception e) {
-                e.printStackTrace();
                 // Mostrar mensaje de error si ocurre una excepción
                 JOptionPane.showMessageDialog(null, "Error al evaluar la expresión: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
@@ -72,7 +70,6 @@ public class CalculadoraCientíficaGitHub {
     // Método para evaluar la expresión en notación polaca inversa
     public static String evaluarExpresion(ArrayList<String> operacion) throws Exception {
         LinkedList<Double> numeros = new LinkedList<>();
-
         for (String entrada : operacion) {
             if (esSigno(entrada)) {
                 if (numeros.size() < 2) {
@@ -80,7 +77,6 @@ public class CalculadoraCientíficaGitHub {
                 }
                 double num2 = numeros.pop();
                 double num1 = numeros.pop();
-
                 switch (entrada) {
                     case "+":
                         numeros.push(num1 + num2);
@@ -97,11 +93,11 @@ public class CalculadoraCientíficaGitHub {
                         }
                         numeros.push(num1 / num2);
                         break;
-                    case "X^":
-                        numeros.push(Math.pow(num1, num2));
+                    case "^":
+                        numeros.push(Math.pow(num2, num1));
                         break;
                     case "V":
-                        numeros.push(Math.pow(num1, 1.0 / num2));
+                        numeros.push(Math.pow(num2, 1.0 / num1));
                         break;
                     default:
                         throw new Exception("Operador no válido: " + entrada);
@@ -124,7 +120,7 @@ public class CalculadoraCientíficaGitHub {
 
     // Método para verificar si una cadena es un operador
     public static boolean esSigno(String entrada) {
-        return entrada.equals("+") || entrada.equals("-") || entrada.equals("x") || entrada.equals("/") || entrada.equals("X^") || entrada.equals("V");
+        return entrada.equals("+") || entrada.equals("-") || entrada.equals("x") || entrada.equals("/") || entrada.equals("^") || entrada.equals("V");
     }
 
     // Método para verificar si una cadena es un número
@@ -146,7 +142,7 @@ public class CalculadoraCientíficaGitHub {
             case "x":
             case "/":
                 return 2;
-            case "X^":
+            case "^":
             case "V":
                 return 3;
             default:
