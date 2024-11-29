@@ -1,4 +1,4 @@
-package calculadora.científica.git.hub;
+package calculadoracientífica;
 
 import java.util.ArrayList;
 import java.util.Stack;
